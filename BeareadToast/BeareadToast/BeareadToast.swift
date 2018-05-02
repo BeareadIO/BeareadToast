@@ -185,7 +185,8 @@ public class BeareadToast: UIView {
         willShow()
         
         if animated {
-            self.animator.show(completion: { (finished) in
+            self.animator.show(completion: { [weak self] (finished) in
+                guard let `self` = self else { return }
                 self.didShow()
             })
         } else {
@@ -199,7 +200,8 @@ public class BeareadToast: UIView {
         willHide()
         
         if animated {
-            self.animator.hide(completion: { (finished) in
+            self.animator.hide(completion: { [weak self] (finished) in
+                guard let `self` = self else { return }
                 self.didHide()
             })
         } else {
@@ -211,7 +213,8 @@ public class BeareadToast: UIView {
     
     public func hide(_ animated: Bool, after delay: TimeInterval) {
         if #available(iOS 10.0, *) {
-            let timer = Timer.init(timeInterval: delay, repeats: false) { (timer) in
+            let timer = Timer.init(timeInterval: delay, repeats: false) { [weak self] (timer) in
+                guard let `self` = self else { return }
                 self.hide(animated)
             }
             RunLoop.current.add(timer, forMode: .commonModes)

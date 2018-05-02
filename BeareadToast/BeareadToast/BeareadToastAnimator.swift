@@ -35,31 +35,37 @@ extension BeareadToastAnimator : BeareadToastAnimatorDelegate {
         isAnimate = true
         toast.alpha = 1
         if animationType == .fade {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.contentView.alpha = 1
-            },  completion: { (finished) in
-                self.isAnimate = false
-                completion(finished)
+                },  completion: { [weak self] (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    completion(finished)
             })
         }
         else if animationType == .zoom {
             toast.contentView.layer.transform = CATransform3DMakeScale(0.01, 0.01, 0.01)
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.contentView.alpha = 1
                 self.toast.contentView.layer.transform = CATransform3DIdentity
-            }, completion: { (finished) in
-                self.isAnimate = false
-                completion(finished)
+                }, completion: { [weak self] (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    completion(finished)
             })
         }
         else if animationType == .slide {
             toast.contentView.frame = CGRect.init(x: toast.contentView.frame.origin.x, y: toast.contentView.frame.origin.y - 20, width: toast.contentView.frame.size.width, height: toast.contentView.frame.size.height)
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.contentView.alpha = 1
                 self.toast.contentView.frame = CGRect.init(x: self.toast.contentView.frame.origin.x, y: 10, width: self.toast.contentView.frame.size.width, height: self.toast.contentView.frame.size.height)
-            }, completion: { (finished) in
-                self.isAnimate = false
-                completion(finished)
+                }, completion: { [weak self] (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    completion(finished)
             })
         }
     }
@@ -68,30 +74,36 @@ extension BeareadToastAnimator : BeareadToastAnimatorDelegate {
         isShow = false
         isAnimate = true
         if animationType == .fade {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.alpha = 0
-            },  completion: { (finished) in
-                self.isAnimate = false
-                completion(finished)
+                },  completion: { [weak self] (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    completion(finished)
             })
         }
         else if animationType == .zoom {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.contentView.alpha = 0
                 self.toast.contentView.layer.transform = CATransform3DMakeScale(0.01, 0.01, 0.01)
-            }, completion: { (finished) in
-                self.isAnimate = false
-                self.toast.contentView.layer.transform = CATransform3DIdentity
-                completion(finished)
+                }, completion: { [weak self] (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    self.toast.contentView.layer.transform = CATransform3DIdentity
+                    completion(finished)
             })
         }
         else if animationType == .slide {
-            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                guard let `self` = self else { return }
                 self.toast.contentView.alpha = 0
                 self.toast.contentView.frame = CGRect.init(x: self.toast.contentView.frame.origin.x, y: self.toast.contentView.frame.origin.y - 20, width: self.toast.contentView.frame.size.width, height: self.toast.contentView.frame.size.height)
-            }, completion: { (finished) in
-                self.isAnimate = false
-                completion(finished)
+                }, completion: { [weak self]  (finished) in
+                    guard let `self` = self else { return }
+                    self.isAnimate = false
+                    completion(finished)
             })
         }
     }
