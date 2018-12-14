@@ -106,7 +106,7 @@ public class BeareadToast: UIView {
     
     fileprivate lazy var loadingView: UIActivityIndicatorView = {
         let loading = UIActivityIndicatorView.init(frame: CGRect.init(x: 6, y: 3, width: 38, height: 38))
-        loading.activityIndicatorViewStyle = .gray
+        loading.style = .gray
         loading.color = .white
         loading.hidesWhenStopped = true
         return loading
@@ -217,10 +217,10 @@ public class BeareadToast: UIView {
                 guard let `self` = self else { return }
                 self.hide(animated)
             }
-            RunLoop.current.add(timer, forMode: .commonModes)
+            RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
         } else {
             let timer = Timer.init(timeInterval: delay, target: self, selector: #selector(timerAction(_:)), userInfo: animated, repeats: false)
-            RunLoop.current.add(timer, forMode: .commonModes)
+            RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
         }
     }
     
@@ -237,7 +237,7 @@ public class BeareadToast: UIView {
     }
     
     fileprivate func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationDidChange), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
     
     @objc fileprivate func statusBarOrientationDidChange() {

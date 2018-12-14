@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "BeareadToast"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "BeareadToast is bearead custom toast."
   s.description  = <<-DESC
                     Bearead Custom Toast, with Different Style.
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "UnicornBoss" => "archyvan9092@gmail.com" }
   s.platform     = :ios, "9.0"
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.swift_version = "4.2"
   s.source       = { :git => "https://github.com/BeareadIO/BeareadToast.git", :tag => "#{s.version}" }
   s.source_files  = "BeareadToast/BeareadToast/*.swift"
   s.resource_bundle = {
