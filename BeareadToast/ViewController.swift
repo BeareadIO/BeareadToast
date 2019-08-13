@@ -24,6 +24,9 @@ class ViewController: UIViewController {
     @IBAction func loadingAction(_ sender: UIButton) {
         let _ = BeareadToast.showLoading(inView: view)
     }
+    @IBAction func hideLoading(_ sender: UIButton) {
+        let _ = BeareadToast.hideAllIn(view)
+    }
     @IBAction func textAction(_ sender: UIButton) {
         let _ = BeareadToast.showText(text: "Test Message", inView: view, hide: 2)
     }

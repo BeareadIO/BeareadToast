@@ -71,7 +71,7 @@ public class BeareadToast: UIView {
             setNeedsDisplay()
         }
     }
-    public lazy var animator: BeareadToastAnimator = {
+    public lazy var animator: BeareadToastAnimator? = {
         let ani = BeareadToastAnimator.init(toast: self)
         ani.animationType = .slide
         return ani
@@ -138,7 +138,7 @@ public class BeareadToast: UIView {
     }
     
     deinit {
-        if (hideDelayTimer?.isValid)! {
+        if hideDelayTimer?.isValid == true {
             hideDelayTimer?.invalidate()
             hideDelayTimer = nil
         } else {
@@ -149,32 +149,33 @@ public class BeareadToast: UIView {
     }
     
     fileprivate func didShow() {
-        if let dele = self.delegate {
-            dele.toastDidShow!(toast: self, inView: parentView!)
+        if let parentView = self.parentView {
+            delegate?.toastDidShow?(toast: self, inView: parentView)
         }
     }
     
     fileprivate func willShow() {
-        if let dele = self.delegate {
-            dele.toastWillShow!(toast: self, inView: parentView!)
+        if let parentView = self.parentView {
+            delegate?.toastWillShow?(toast: self, inView: parentView)
         }
     }
     
     fileprivate func didHide() {
-        if let dele = self.delegate {
-            dele.toastDidHide!(toast: self, inView: parentView!)
+        if let parentView = self.parentView {
+            delegate?.toastDidHide?(toast: self, inView: parentView)
         }
         loadingView.stopAnimating()
         hideDelayTimer?.invalidate()
         alpha = 0
+        animator = nil
         if isRemoveFromSuperViewWhenHide {
             self.removeFromSuperview()
         }
     }
     
     fileprivate func willHide() {
-        if let dele = self.delegate {
-            dele.toastWillHide!(toast: self, inView: parentView!)
+        if let parentView = self.parentView {
+            delegate?.toastWillHide?(toast: self, inView: parentView)
         }
     }
     
@@ -185,7 +186,7 @@ public class BeareadToast: UIView {
         willShow()
         
         if animated {
-            self.animator.show(completion: { [weak self] (finished) in
+            self.animator?.show(completion: { [weak self] (finished) in
                 guard let `self` = self else { return }
                 self.didShow()
             })
@@ -200,7 +201,7 @@ public class BeareadToast: UIView {
         willHide()
         
         if animated {
-            self.animator.hide(completion: { [weak self] (finished) in
+            self.animator?.hide(completion: { [weak self] (finished) in
                 guard let `self` = self else { return }
                 self.didHide()
             })
