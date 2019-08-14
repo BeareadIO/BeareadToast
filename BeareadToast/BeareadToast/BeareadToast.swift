@@ -376,22 +376,22 @@ extension BeareadToast {
 
 extension BeareadToast {
     
-    public static func hideIn(_ view: UIView) -> Bool {
+    public static func hideIn(_ view: UIView, animated: Bool = true) -> Bool {
         var result = false
         if let toast = toastIn(view) {
             toast.isRemoveFromSuperViewWhenHide = true
-            toast.hide(true)
+            toast.hide(animated)
             result = true
         }
         return result
     }
     
-    public static func hideAllIn(_ view: UIView) -> Bool {
+    public static func hideAllIn(_ view: UIView, animated: Bool = true) -> Bool {
         let arr = allToastIn(view)
         var result = false
         for toast in arr {
             toast.isRemoveFromSuperViewWhenHide = true
-            toast.hide(true)
+            toast.hide(animated)
             result = true
         }
         return result
